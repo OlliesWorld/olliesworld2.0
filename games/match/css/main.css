@@ -1,0 +1,403 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    background-color: #003049;
+    font-family: 'Exo 2', sans-serif;
+	font-size: 18px;
+	display: flex;
+}
+#header2 {
+	
+	color: #be6518;
+	cursor: default;
+	height: 3.25em;
+	left: 0;
+	line-height: 3.25em;
+	position: fixed;
+	text-align: right;
+	top: 0;
+	width: 100%;
+	
+	font-size: 2.55em;
+	border-bottom: #be6518  15px solid;
+}
+#header2 > .logo {
+	display: inline-block;
+	height: inherit;
+	left: 1.25em;
+	line-height: inherit;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	
+}
+
+#header2 > .logo a {
+		font-size: 1.25em;
+		color: #be6518;
+		text-decoration: none;
+		font-weight: 700;
+	}
+#header2 nav {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+		flex-direction: row;
+		align-items: center;
+	}
+
+#header2 nav ul {
+		margin: 0;
+		padding: 0;
+		display: flex;
+		justify-content: flex-end;
+		
+	  }
+#header2 nav ul li {
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: .875em;
+		padding: 0 10px;
+		margin: 10px;
+		display: flex;
+		
+		width: 100%;
+	}
+#header2 nav ul li a {
+		margin-left: 10px;
+		
+		color: #be6518;
+		text-decoration: none;
+	  }
+
+.container {
+	max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+.game {
+	width: 640px;
+	height: 640px;
+	display: flex;
+	flex-wrap: wrap;
+	margin-top:150px;
+
+	perspective: 1000px;
+	border: grey 5px solid;
+	
+}
+/** card styles **/
+
+.card {
+	width: calc(25% - 10px);
+	height: calc(33.33% - 10px);
+	position: relative;
+	transform: scale(1);
+	transform-style: preserve-3d;
+	transition: transform .5s;
+	margin: 5px;
+    
+}
+.card:active {
+	transform: scale(.97);
+	transition: transform .2s;
+}
+.card.flip {
+	transform: rotateY(180deg);
+}
+.front-face, .back-face {
+
+	position: absolute;
+	padding: 20px;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+	background-color: #be6518;
+}
+.front-face {
+	transform: rotateY(180deg);
+}
+
+/** Score Panel **/
+.score-panel {
+	width: 640px;
+	height: 640px;
+	margin: auto;
+	color: #be6518;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	
+}
+.score-panel h1 {
+	font-size: 65px;
+	margin-top: 200px;
+	text-decoration: underline;
+}
+/* timer */
+.base-timer {
+	position: relative;
+	height: 200px;
+	width: 200px;
+	margin-top: 50px;
+  }
+  
+  .base-timer__circle {
+	fill: none;
+	stroke: none;
+  }
+  
+  .base-timer__path-elapsed {
+	stroke-width: 7px;
+	stroke: grey;
+  }
+  
+  .base-timer__label {
+	align-items: center;
+	display: flex;
+	font-size: 38px;
+	height: 200px;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	width: 200px;
+  }
+  
+  .base-timer__path-remaining {
+	stroke-width: 7px;
+  /*   stroke-linecap: round; */
+	transform: rotate(90deg);
+	transform-origin: center;
+	transition: 1s linear all;
+	stroke: currentColor;
+  }
+  
+  .base-timer__svg {
+	transform: scaleX(-1);
+  }
+  
+  .base-timer__path-remaining.green {
+	color: rgb(65, 184, 131);
+  }
+  
+  .base-timer__path-remaining.orange {
+	color: orange;
+  }
+  
+  .base-timer__path-remaining.red {
+	color: red;
+  }
+
+/** Restart Button**/
+#restart {
+	margin-top: 50px;
+}
+/** Congrats 
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.7);
+	transition: opacity 500ms;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.overlay:target {
+	visibility: visible;
+	opacity: 1;
+}
+  
+.popup {
+	margin: 70px auto;
+	padding: 20px;
+	background: #ffffff;
+	border-radius: 5px;
+	width: 85%;
+	position: relative;
+	transition: all 5s ease-in-out;
+	font-family: 'Gloria Hallelujah', cursive;
+}
+  
+.popup h2 {
+	margin-top: 0;
+	color: #333;
+	font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .close {
+	position: absolute;
+	top: 20px;
+	right: 30px;
+	transition: all 200ms;
+	font-size: 30px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #333;
+}
+
+.popup .close:hover {
+	color: #E5F720;
+}
+
+.popup .content-1,
+.content-2 {
+	max-height: 30%;
+	overflow: auto;
+	text-align: center;
+}
+
+.show {
+	visibility: visible !important;
+	opacity: 100 !important;
+}
+
+#starRating li {
+	display: inline-block;
+}
+
+#play-again {
+	background-color: #141214;
+	padding: 0.7rem 1rem;
+	font-size: 1.1rem;
+	display: block;
+	margin: 0 auto;
+	width: 50%;
+	font-family: 'Gloria Hallelujah', cursive;
+	color: #ffffff;
+	border-radius: 5px;
+}*/
+
+/* animations */
+@keyframes flipInY {
+	from {
+		transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+		animation-timing-function: ease-in;
+		opacity: 0;
+	}
+
+	40% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+		animation-timing-function: ease-in;
+	}
+
+	60% {
+		transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+		opacity: 1;
+	}
+
+	80% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+	}
+
+	to {
+		transform: perspective(400px);
+	}
+}
+
+@keyframes rubberBand {
+	from {
+		transform: scale3d(1, 1, 1);
+	}
+
+	30% {
+		transform: scale3d(1.25, 0.75, 1);
+	}
+
+	40% {
+		transform: scale3d(0.75, 1.25, 1);
+	}
+
+	50% {
+		transform: scale3d(1.15, 0.85, 1);
+	}
+
+	65% {
+		transform: scale3d(.95, 1.05, 1);
+	}
+
+	75% {
+		transform: scale3d(1.05, .95, 1);
+	}
+
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+@keyframes pulse {
+	from {
+		transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+		transform: scale3d(1.2, 1.2, 1.2);
+	}
+
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+
+/****** Media queries
+***************************/
+
+
+@media screen and (max-width: 768px) {
+	.container {
+		font-size: 22px;
+		flex-direction: column;
+		width: 360px;
+		height: 600px;
+	}
+	#header2 {
+		margin: auto;
+	}
+	#header2 > .logo a {
+		font-size: 1em;
+	}
+	#header2 nav ul li {
+		font-size: .45em;
+	}
+	.score-panel {
+		height: 300px;
+		width: 300px;
+		
+		flex-direction: row;
+		margin-top: 200px;
+		padding: 25px;
+	}
+	.score-panel h1 {
+		font-size: 2em;
+		flex-direction: row;
+		padding-right: 200px;
+	}
+	#timer {
+		padding-right: 100px;
+		align-self: flex-end;
+	}
+	.game {
+		width: 360px;
+		height: 360px;
+		justify-content: center;
+	}
+
+	.game .card {
+		height: 50px;
+		width: 50px;
+	}
+
+	
+}
