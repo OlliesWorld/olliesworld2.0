@@ -23,14 +23,10 @@ header {
   background-color: #003049;
   margin: 0 auto;
   max-width: 100%;
-  min-height: 105px;
 }
 .logo {
   color: #bc6d02;
-  font-size: 1em;
-
   text-decoration: none;
-  max-width: 100%;
 }
 nav {
   background-color: #003049;
@@ -40,6 +36,7 @@ nav {
   flex-wrap: wrap;
   font-size: 0.7em;
   margin: 0;
+  max-height: 175px;
   opacity: 90%;
   padding-right: 10px;
   position: fixed;
@@ -69,8 +66,8 @@ nav ul a {
   background-size: cover;
   background-position: center;
   display: flex;
-
-  min-height: 320px;
+  margin-top: 50px;
+  min-height: 520px;
   position: relative;
 }
 .hero p {
@@ -81,6 +78,7 @@ nav ul a {
   opacity: 80%;
   margin: 30px;
   max-width: 45%;
+  max-height: 300px;
   text-align: center;
   padding-top: 100px;
 }
@@ -103,6 +101,9 @@ nav ul a {
   flex-direction: column;
   margin-left: 20px;
   width: 58%;
+}
+.photo-back h2 {
+  padding-top: 70px;
 }
 .photo-back a {
   color: #003049;
@@ -141,7 +142,7 @@ nav ul a {
   border-radius: 6px;
   display: inline-block;
   max-width: 90%;
-  margin: -30px 0 0 25px;
+  margin: 10px 0 0 25px;
   object-fit: contain;
   text-align: center;
 }
@@ -201,7 +202,7 @@ nav ul a {
   margin: 0 auto;
   max-width: 100%;
   opacity: 0.8;
-  padding: 40px;
+  padding: 0px;
 }
 .single-box {
   border: solid 5px #003049;
@@ -216,7 +217,7 @@ nav ul a {
 
 /*Services*/
 .single-box {
-  margin: 50px 25px 155px 50px;
+  margin: 120px 25px 155px 50px;
 }
 .services {
   color: #003049;
@@ -237,6 +238,7 @@ nav ul a {
   background-position: center;
   border-bottom: solid 10px #bc6d02;
   position: relative;
+  margin-top: 50px;
   min-height: 300px;
 }
 .blog_header {
@@ -251,11 +253,16 @@ nav ul a {
   max-width: 45%;
 }
 .blog_content {
-  max-width: 80%;
+  max-width: 100%;
   margin: 0 auto;
 }
-.blog_single-box {
-  max-width: 60%;
+.blog-single-box {
+  border: solid 5px #003049;
+  box-shadow: -10px -10px 10px #003049;
+  color: white;
+  margin: 20px 10px 10px 50px;
+  max-width: 80%;
+  padding: 15px;
 }
 .blog_align-center {
   color: #003049;
@@ -276,7 +283,6 @@ nav ul a {
 .next_blog a {
   color: #003049;
   padding: 8px;
-  text-decoration: none;
 }
 .next_blog a:hover {
   background-color: #bc6d02;
@@ -514,6 +520,9 @@ footer ul {
   }
 }
 @media screen and (min-width: 978px) {
+  nav ul a {
+    font-size: 1.5em;
+  }
   .grid {
     display: flex;
     flex-wrap: wrap;
