@@ -25,9 +25,28 @@
     <article class="container">
       <section class="score-panel">
         <h1>Ollie's Match Game</h1>
-         <!--<span class="moves">0</span>Move(s)-->
-          <div id="timer"></div>
-        <!--<button id="restart"><img src="img/raccoon.png" style="width:55px;" style="height:55px;" onclick="newFunction()" value="Reset"></button>-->
+        <div class="container_timer">
+ 
+          <div class="circle">
+             <svg width="150" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(110,110)">
+                   <circle r="100" class="e-c-base"/>
+                   <g transform="rotate(-90)">
+                      <circle r="100" class="e-c-progress"/>
+                      <g id="e-pointer">
+                         <circle cx="100" cy="0" r="8" class="e-c-pointer"/>
+                      </g>
+                   </g>
+                </g>
+             </svg>
+          </div>
+          <div class="controlls">
+             <div class="display-remain-time">00:60</div>
+             <button class="play" id="pause"></button>
+          </div>
+       </div>
+         
+         
       </section>
       
       <section class="game">
@@ -91,25 +110,7 @@
           </div>
            
       </section>
-      <!--<div id="popup1" class="overlay">
-        <div class="popup">
-          <h2>Congratulations!!</h2>
-          <a class="close" href=#>x</a>
-          <div class="content-1">
-            Congratulations you are a Winner!!!!
-          </div>
-          <div class="content-2">
-            <p>You made <span id=finalMove></span>moves</p>
-            <p>in<span id=totalTime></span></p>
-            <p>Rating: <span id=starRating></span></p>
-          </div>
-          <button id="play-again"onClick="playAgain()">
-            Again, Please!
-          </button>
-        </div>-->
-     
-  
-  
+      
   <script src="js/script.js"></script>
 </article>
 </body>
