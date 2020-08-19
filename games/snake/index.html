@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Snake Game</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <input
+          type="checkbox"
+          name="checkbox"
+          onclick="myFunction()"
+          class="switch"
+        />
+      </div>
+      <script>
+        function myFunction() {
+          var element = document.body;
+          element.classList.toggle('dark-mode');
+        }
+      </script>
+
+      <div class="controls">
+        <h1>Snake Game</h1>
+        <div class="scoreboard">
+          <button id="start">Start</button>
+          <h2>Score <span id="score">0</span></h2>
+        </div>
+      </div>
+      <div class="grid"></div>
+      <script src="index.js"></script>
+    </div>
+  </body>
+</html>
