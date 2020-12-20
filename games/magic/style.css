@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Montserrat', sans-serif;
   color: #454545;
@@ -24,7 +25,7 @@ body {
   left: 50%;
   margin-top: -60px;
   margin-left: -65px;
-  font: 16px 'Open Sans', Helvetica, Arial, sans-serif;
+  font: 16px 'Montserrat', Helvetica, Arial, sans-serif;
   color: #222;
   text-transform: uppercase;
 }
