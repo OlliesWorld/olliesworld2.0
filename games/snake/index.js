@@ -4,7 +4,7 @@ const scoreDisplay = document.getElementById('score')
 let squares = []
 let currentSnake = [2, 1, 0]
 let direction = 1
-const width = 10
+const width = 20
 let appleIndex = 0
 let score = 0
 let intervalTime = 1000
@@ -48,8 +48,8 @@ function startGame() {
 
 function move() {
     if (
-        (currentSnake[0] + width >= width * width && direction === width) || //if snake has hit bottom
-        (currentSnake[0] % width === width - 1 && direction === 1) || //if snake has hit right wall
+        (currentSnake[0] + width >= width*width && direction === width) || //if snake has hit bottom
+        (currentSnake[0] % width === width-1 && direction === 1) || //if snake has hit right wall
         (currentSnake[0] % width === 0 && direction === -1) || //if snake has hit left wall
         (currentSnake[0] - width < 0 && direction === -width) || //if snake has hit top
         squares[currentSnake[0] + direction].classList.contains('snake')
