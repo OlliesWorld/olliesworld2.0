@@ -9,7 +9,7 @@ $(document).ready(function () {
     var randomNumberArray = randomNumber * this.listOfAnswers.length;
     var randomIndex = Math.floor(randomNumberArray);
     var randomAnswer = this.listOfAnswers[randomIndex];
-    $("#8ball").attr("src", "answersideo.png");
+    $("#8ball").attr("src", "ollie_ball.jpg");
     $("#answer").text(randomAnswer);
     console.log(question);
     console.log(randomAnswer);
@@ -24,6 +24,6 @@ $(document).ready(function () {
     };
 
     $("#questionButton").click(onClick);
-    $("#8ball").attr("src", "https://s3.amazonaws.com/media.skillcrush.com/skillcrush/wp-content/uploads/2016/09/8side.png");
+    $("#8ball").attr("src", "ollie_ball.jpg");
   }, 500);
 });
