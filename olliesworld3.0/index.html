@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OlliesWorld — Marketing Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --slate:   #2a4a5e;
+      --slate-d: #1d3648;
+      --slate-l: #3b6070;
+      --amber:   #c4762a;
+      --amber-l: #d98b3a;
+      --cream:   #f5f0e8;
+      --cream-d: #ede5d4;
+      --ink:     #1a2a35;
+      --mid:     #7a9aaa;
+      --ff-head: 'Playfair Display', Georgia, serif;
+      --ff-body: 'DM Sans', system-ui, sans-serif;
+    }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      font-family: var(--ff-body);
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    /* — NAV — */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      background: var(--slate-d);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 52px; height: 62px;
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: var(--ff-head); font-size: 1.2rem; font-weight: 700;
+      color: var(--amber); text-decoration: none; letter-spacing: 0.02em;
+      cursor: pointer;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+    .nav-links button {
+      background: none; border: none; cursor: pointer;
+      color: var(--cream); font-family: var(--ff-body);
+      font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
+      padding: 4px 0; position: relative;
+      transition: color 0.2s;
+    }
+    .nav-links button::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 1px; background: var(--amber);
+      transform: scaleX(0); transition: transform 0.2s;
+    }
+    .nav-links button:hover { color: var(--amber); }
+    .nav-links button:hover::after { transform: scaleX(1); }
+    .nav-links button.active { color: var(--amber); }
+    .nav-links button.active::after { transform: scaleX(1); }
+    .nav-cta-btn {
+      background: var(--amber) !important; color: #fff !important;
+      padding: 9px 20px !important; border-radius: 3px;
+      font-weight: 600 !important;
+    }
+    .nav-cta-btn:hover { background: var(--amber-l) !important; }
+    .nav-cta-btn::after { display: none !important; }
+
+    /* — PAGE WRAPPER — */
+    #app { position: fixed; inset: 62px 0 0 0; }
+    .page {
+      position: absolute; inset: 0;
+      overflow-y: auto; overflow-x: hidden;
+      opacity: 0; pointer-events: none;
+      transform: translateY(24px);
+      transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.45s cubic-bezier(0.22,1,0.36,1);
+    }
+    .page.active {
+      opacity: 1; pointer-events: all; transform: translateY(0);
+    }
+    .page.exit {
+      opacity: 0; transform: translateY(-18px);
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    /* — SCROLL ANIMATIONS — */
+    .reveal {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0; transform: translateX(40px);
+      transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale {
+      opacity: 0; transform: scale(0.93);
+      transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+    [data-delay="1"] { transition-delay: 0.08s; }
+    [data-delay="2"] { transition-delay: 0.16s; }
+    [data-delay="3"] { transition-delay: 0.24s; }
+    [data-delay="4"] { transition-delay: 0.32s; }
+    [data-delay="5"] { transition-delay: 0.40s; }
+    [data-delay="6"] { transition-delay: 0.48s; }
+
+    /* — TICKER — */
+    .ticker-wrap { background: var(--amber); padding: 13px 0; overflow: hidden; white-space: nowrap; }
+    .ticker-track { display: inline-block; animation: ticker 30s linear infinite; }
+    .ticker-track span { font-family: var(--ff-head); font-style: italic; font-size: 0.95rem; color: #fff; margin-right: 56px; }
+    .ticker-track span::after { content: ' …'; margin-left: 56px; opacity: 0.55; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* — COMMON — */
+    .inner { max-width: 1160px; margin: 0 auto; padding: 0 52px; }
+    .label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--amber); margin-bottom: 14px; }
+    .h2 { font-family: var(--ff-head); font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 800; line-height: 1.1; color: var(--slate-d); }
+    .h2.light { color: var(--cream); }
+    .body-lg { font-size: 1.05rem; line-height: 1.85; color: #4a6070; }
+    .btn-amber { display: inline-block; background: var(--amber); color: #fff; padding: 14px 32px; border-radius: 3px; font-weight: 700; font-size: 0.88rem; letter-spacing: 0.05em; text-decoration: none; border: none; cursor: pointer; font-family: var(--ff-body); transition: background 0.2s, transform 0.15s; }
+    .btn-amber:hover { background: var(--amber-l); transform: translateY(-2px); }
+    .btn-outline { display: inline-block; border: 1px solid var(--mid); color: var(--cream); padding: 13px 28px; border-radius: 3px; font-weight: 500; font-size: 0.88rem; letter-spacing: 0.04em; text-decoration: none; cursor: pointer; font-family: var(--ff-body); transition: border-color 0.2s, color 0.2s; background: none; }
+    .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+    .stripe-bg {
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(255,255,255,0.03) 18px, rgba(255,255,255,0.03) 36px);
+    }
+    .stripe-bg-light {
+      background-image: repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(0,0,0,0.018) 14px, rgba(0,0,0,0.018) 28px);
+    }
+    .placeholder-box {
+      background: var(--slate-l); display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .placeholder-box::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 16px, rgba(255,255,255,0.04) 16px, rgba(255,255,255,0.04) 32px);
+    }
+    .placeholder-label { font-family: monospace; font-size: 0.68rem; color: rgba(255,255,255,0.35); z-index:1; text-align:center; line-height:1.9; padding:8px; }
+
+    /* ——————————————————————————————
+       HOME PAGE
+    —————————————————————————————— */
+    /* hero */
+    .home-hero {
+      min-height: calc(100vh - 62px);
+      background: var(--slate-d);
+      display: grid; grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .home-hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 60px 80px 52px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(196,118,42,0.15); border: 1px solid rgba(196,118,42,0.3);
+      border-radius: 100px; padding: 6px 14px 6px 10px;
+      margin-bottom: 30px; width: fit-content;
+    }
+    .hero-badge-dot { width: 7px; height: 7px; background: var(--amber); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+    .hero-badge-txt { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+    .home-h1 {
+      font-family: var(--ff-head); font-size: clamp(3rem, 4.8vw, 4.5rem);
+      font-weight: 800; line-height: 1.06; color: var(--cream); margin-bottom: 28px;
+    }
+    .home-h1 em { font-style: italic; color: var(--amber); }
+    .home-sub { font-size: 1.05rem; line-height: 1.8; color: var(--mid); max-width: 420px; margin-bottom: 44px; }
+    .hero-btns { display: flex; gap: 16px; align-items: center; }
+    .hero-right { position: relative; overflow: hidden; min-height: 500px; }
+    .hero-img-fill { position: absolute; inset: 0; background: var(--slate); }
+    .hero-amber-wash {
+      position: absolute; bottom: 0; left: 0; width: 55%; height: 46%;
+      background: var(--amber); opacity: 0.88; mix-blend-mode: multiply;
+    }
+    .hero-quote-overlay {
+      position: absolute; bottom: 52px; left: 40px; right: 40px; z-index: 3;
+    }
+    .hero-quote-overlay p { font-family: var(--ff-head); font-style: italic; font-size: 1rem; line-height: 1.65; color: var(--cream); }
+
+    /* marquee strip */
+    .home-marquee { background: var(--amber); overflow: hidden; padding: 13px 0; white-space: nowrap; }
+    .home-marquee-inner { display: inline-flex; animation: marquee 28s linear infinite; }
+    .marquee-item { font-family: var(--ff-head); font-style: italic; font-size: 0.95rem; color: #fff; margin-right: 52px; }
+    .marquee-div { margin-right: 52px; color: rgba(255,255,255,0.5); font-size:0.7rem; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* stats */
+    .home-stats { padding: 80px 0; background: var(--cream); border-bottom: 1px solid var(--cream-d); }
+    .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; }
+    .stat-item { padding: 40px 48px; border-right: 1px solid #d4c8b0; }
+    .stat-item:last-child { border-right: none; }
+    .stat-big { font-family: var(--ff-head); font-size: 3.2rem; font-weight: 800; color: var(--amber); line-height: 1; }
+    .stat-desc { font-size: 0.82rem; color: var(--mid); margin-top: 8px; line-height: 1.5; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* home intro */
+    .home-intro { padding: 120px 0; background: var(--cream); }
+    .home-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .home-intro-img { aspect-ratio: 4/5; border-radius: 2px; position: relative; }
+    .home-intro-accent { position: absolute; bottom: -24px; right: -24px; width: 140px; height: 140px; background: var(--amber); z-index: -1; }
+    .home-intro-pill {
+      position: absolute; top: 28px; left: -32px;
+      background: var(--slate-d); padding: 18px 22px; border-radius: 2px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    }
+    .pill-num { font-family: var(--ff-head); font-size: 2.2rem; font-weight: 800; color: var(--amber); line-height: 1; }
+    .pill-lbl { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-top: 4px; }
+    .home-callout { background: var(--slate-d); padding: 22px 26px; margin-top: 36px; border-left: 3px solid var(--amber); font-family: var(--ff-head); font-style: italic; font-size: 1rem; color: var(--cream); line-height: 1.65; }
+
+    /* home services preview */
+    .home-services-prev { padding: 0 0 120px; background: var(--cream); }
+    .home-services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 56px; }
+    .home-svc-card { background: var(--slate-d); padding: 44px 36px; transition: background 0.25s; cursor: default; }
+    .home-svc-card:hover { background: var(--slate); }
+    .svc-num { font-family: var(--ff-head); font-size: 2.4rem; font-weight: 800; color: rgba(196,118,42,0.2); line-height:1; margin-bottom:20px; }
+    .svc-title { font-family: var(--ff-head); font-size: 1.25rem; font-weight: 700; color: var(--cream); margin-bottom: 14px; }
+    .svc-desc { font-size: 0.88rem; line-height: 1.75; color: var(--mid); }
+    .svc-pov { font-size: 0.78rem; color: var(--amber); font-style: italic; line-height: 1.5; margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.06); }
+
+    /* home featured work */
+    .home-work { padding: 0 0 120px; background: var(--cream); }
+    .home-work-strip { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3px; margin-top: 56px; }
+    .hw-card { position: relative; overflow: hidden; cursor: pointer; }
+    .hw-card-main { aspect-ratio: 16/10; }
+    .hw-card-side { display: grid; grid-template-rows: 1fr 1fr; gap: 3px; }
+    .hw-card-side .hw-card { aspect-ratio: auto; }
+    .hw-card-bg { position: absolute; inset: 0; background: var(--slate); transition: transform 0.5s ease; }
+    .hw-card:hover .hw-card-bg { transform: scale(1.05); }
+    .hw-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,42,53,0.92) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
+    .hw-cat { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); font-weight: 700; margin-bottom: 8px; }
+    .hw-title { font-family: var(--ff-head); font-size: 1.3rem; font-weight: 700; color: #fff; line-height: 1.2; }
+    .hw-sub { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 6px; }
+
+    /* journey band */
+    .journey-band { background: var(--amber); padding: 100px 0; }
+    .journey-grid { display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
+    .jb-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: rgba(255,255,255,0.65); margin-bottom: 14px; }
+    .jb-h2 { font-family: var(--ff-head); font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 800; color: #fff; line-height: 1.08; }
+    .jb-sub { font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.72); margin-top: 16px; max-width: 480px; }
+    .btn-white { display: inline-block; background: #fff; color: var(--amber); padding: 16px 36px; border-radius: 3px; font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; transition: transform 0.15s, box-shadow 0.15s; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.12); }
+
+    /* footer */
+    footer { background: var(--ink); padding: 52px; display: grid; grid-template-columns: 1fr auto auto; gap: 48px; align-items: center; }
+    .footer-brand { }
+    .footer-logo-txt { font-family: var(--ff-head); font-size: 1.15rem; font-weight: 700; color: var(--amber); }
+    .footer-tagline { font-size: 0.78rem; color: var(--mid); margin-top: 5px; }
+    .footer-nav { display: flex; gap: 28px; }
+    .footer-nav button { background: none; border: none; cursor: pointer; font-family: var(--ff-body); font-size: 0.8rem; color: var(--mid); transition: color 0.2s; }
+    .footer-nav button:hover { color: var(--amber); }
+    .footer-copy { font-size: 0.72rem; color: rgba(122,154,170,0.45); }
+
+    /* ——————————————————————————————
+       ABOUT PAGE
+    —————————————————————————————— */
+    .about-hero { padding: 100px 0 80px; background: var(--slate-d); }
+    .about-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-eyebrow { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--amber); margin-bottom: 18px; }
+    .about-h1 { font-family: var(--ff-head); font-size: clamp(2.4rem,4vw,3.8rem); font-weight: 800; color: var(--cream); line-height: 1.08; margin-bottom: 28px; }
+    .about-h1 em { font-style: italic; color: var(--amber); }
+    .about-hero-sub { font-size: 1.05rem; line-height: 1.8; color: var(--mid); max-width: 460px; }
+    .about-hero-img { aspect-ratio: 4/5; border-radius: 2px; position: relative; }
+
+    .about-story { padding: 100px 0; background: var(--cream); }
+    .about-story-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; }
+    .about-timeline { }
+    .timeline-item { padding: 0 0 48px 28px; border-left: 1px solid var(--cream-d); position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: -5px; top: 5px; width: 9px; height: 9px; background: var(--amber); border-radius: 50%; }
+    .timeline-year { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); font-weight: 700; margin-bottom: 8px; }
+    .timeline-txt { font-size: 0.88rem; line-height: 1.7; color: #5a7080; }
+    .about-story-body { }
+    .about-story-body p { font-size: 1.02rem; line-height: 1.88; color: #4a6070; margin-bottom: 22px; }
+    .about-story-body p strong { color: var(--slate-d); }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+    .tag { background: var(--cream-d); border: 1px solid #d4c8b0; padding: 6px 14px; border-radius: 100px; font-size: 0.78rem; font-weight: 500; color: var(--slate); }
+
+    .about-values { padding: 100px 0; background: var(--slate-d); }
+    .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 56px; }
+    .value-card { background: var(--slate); padding: 44px 36px; transition: background 0.25s; }
+    .value-card:hover { background: var(--slate-l); }
+    .value-icon { font-size: 2rem; margin-bottom: 20px; }
+    .value-title { font-family: var(--ff-head); font-size: 1.25rem; font-weight: 700; color: var(--cream); margin-bottom: 14px; }
+    .value-desc { font-size: 0.88rem; line-height: 1.75; color: var(--mid); }
+
+    .about-team { padding: 100px 0; background: var(--cream); }
+    .team-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 28px; margin-top: 56px; }
+    .team-card { }
+    .team-img { aspect-ratio: 3/4; border-radius: 2px; margin-bottom: 18px; }
+    .team-name { font-family: var(--ff-head); font-size: 1.05rem; font-weight: 700; color: var(--slate-d); }
+    .team-role { font-size: 0.8rem; color: var(--amber); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+    .team-bio { font-size: 0.82rem; line-height: 1.65; color: #5a7080; margin-top: 10px; }
+
+    /* ——————————————————————————————
+       SERVICES PAGE
+    —————————————————————————————— */
+    .services-hero { padding: 100px 0 72px; background: var(--slate-d); }
+    .services-all { padding: 80px 0 120px; background: var(--cream); }
+    .services-list { }
+    .service-row { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 52px; align-items: start; padding: 52px 0; border-bottom: 1px solid #d4c8b0; }
+    .service-row:first-child { padding-top: 0; }
+    .service-row-num { font-family: var(--ff-head); font-size: 3rem; font-weight: 800; color: rgba(196,118,42,0.25); line-height: 1; }
+    .service-row-left { }
+    .service-row-title { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 700; color: var(--slate-d); margin-bottom: 14px; }
+    .service-row-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .service-tag { background: var(--cream-d); border: 1px solid #d4c8b0; padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 600; color: var(--slate); letter-spacing: 0.06em; }
+    .service-row-right { }
+    .service-row-desc { font-size: 0.95rem; line-height: 1.85; color: #4a6070; }
+    .service-row-pov { background: var(--cream-d); border-left: 3px solid var(--amber); padding: 18px 22px; margin-top: 22px; font-family: var(--ff-head); font-style: italic; font-size: 0.92rem; color: var(--slate); line-height: 1.6; }
+
+    .services-process { padding: 100px 0; background: var(--slate-d); }
+    .process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 56px; }
+    .process-step { background: var(--slate); padding: 44px 32px; position: relative; }
+    .process-step::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: var(--amber); font-size: 1.2rem; z-index: 2; }
+    .process-step:last-child::after { display: none; }
+    .process-n { font-family: var(--ff-head); font-size: 3rem; font-weight: 800; color: rgba(196,118,42,0.18); line-height: 1; margin-bottom: 20px; }
+    .process-title { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; color: var(--cream); margin-bottom: 12px; }
+    .process-desc { font-size: 0.85rem; line-height: 1.7; color: var(--mid); }
+
+    /* ——————————————————————————————
+       WORK PAGE
+    —————————————————————————————— */
+    .work-hero { padding: 100px 0 72px; background: var(--slate-d); }
+    .work-grid-full { padding: 80px 0 120px; background: var(--cream); }
+    .work-mosaic { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+    .wm-card { position: relative; overflow: hidden; cursor: pointer; }
+    .wm-card.big { grid-column: 1 / 3; aspect-ratio: 21/8; }
+    .wm-card.tall { aspect-ratio: 4/5; }
+    .wm-card.wide { aspect-ratio: 16/9; }
+    .wm-card.sq { aspect-ratio: 1; }
+    .wm-bg { position: absolute; inset: 0; transition: transform 0.5s ease; }
+    .wm-card:hover .wm-bg { transform: scale(1.05); }
+    .wm-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,42,53,0.93) 0%, transparent 52%); display: flex; flex-direction: column; justify-content: flex-end; padding: 36px; }
+    .wm-cat { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); font-weight: 700; margin-bottom: 8px; }
+    .wm-title { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1.2; }
+    .wm-meta { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 8px; }
+    .wm-tags { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .wm-tag { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 100px; font-size: 0.68rem; color: rgba(255,255,255,0.65); }
+
+    /* ——————————————————————————————
+       BLOG PAGE
+    —————————————————————————————— */
+    .blog-hero { padding: 100px 0 72px; background: var(--slate-d); }
+    .blog-featured { padding: 80px 0 60px; background: var(--cream); }
+    .blog-featured-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3px; }
+    .blog-feat-main { position: relative; aspect-ratio: 16/10; overflow: hidden; cursor: pointer; }
+    .blog-feat-main:hover .blog-feat-bg { transform: scale(1.04); }
+    .blog-feat-bg { position: absolute; inset: 0; background: var(--slate); transition: transform 0.5s ease; }
+    .blog-feat-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,42,53,0.94) 0%, transparent 48%); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; }
+    .blog-feat-side { display: flex; flex-direction: column; gap: 3px; }
+    .blog-feat-sm { position: relative; flex: 1; overflow: hidden; cursor: pointer; min-height: 160px; }
+    .blog-feat-sm:hover .bfs-bg { transform: scale(1.05); }
+    .bfs-bg { position: absolute; inset: 0; background: var(--slate-l); transition: transform 0.4s ease; }
+    .bfs-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,42,53,0.9) 0%, transparent 55%); padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .blog-all { padding: 0 0 120px; background: var(--cream); }
+    .blog-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .blog-card { background: #fff; border: 1px solid var(--cream-d); overflow: hidden; transition: transform 0.22s, box-shadow 0.22s; cursor: pointer; }
+    .blog-card:hover { transform: translateY(-5px); box-shadow: 0 14px 44px rgba(42,74,94,0.1); }
+    .blog-card-img { height: 180px; }
+    .blog-card-body { padding: 28px; }
+    .blog-cat { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); font-weight: 700; margin-bottom: 10px; }
+    .blog-title { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; color: var(--slate-d); line-height: 1.35; margin-bottom: 12px; }
+    .blog-excerpt { font-size: 0.84rem; line-height: 1.7; color: #5a7080; }
+    .blog-meta { display: flex; align-items: center; gap: 10px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--cream-d); }
+    .blog-avatar { width: 28px; height: 28px; background: var(--amber); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 800; color: #fff; }
+    .blog-meta-txt { font-size: 0.74rem; color: var(--mid); }
+
+    /* ——————————————————————————————
+       CONTACT PAGE
+    —————————————————————————————— */
+    .contact-hero { padding: 100px 0 72px; background: var(--slate-d); }
+    .contact-body { padding: 80px 0 120px; background: var(--cream); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; }
+    .contact-info { }
+    .contact-info-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px; }
+    .ci-icon { width: 42px; height: 42px; flex-shrink: 0; background: rgba(196,118,42,0.1); border: 1px solid rgba(196,118,42,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .ci-icon svg { width: 16px; height: 16px; }
+    .ci-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-bottom: 4px; }
+    .ci-val { font-size: 0.95rem; color: var(--slate-d); font-weight: 500; }
+    .contact-callout { background: var(--slate-d); padding: 28px; border-left: 3px solid var(--amber); margin-top: 40px; font-family: var(--ff-head); font-style: italic; font-size: 1rem; color: var(--cream); line-height: 1.65; }
+    .contact-form-wrap { }
+    .form-row { margin-bottom: 20px; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .form-label { display: block; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-bottom: 8px; font-weight: 600; }
+    .form-control { width: 100%; background: var(--cream-d); border: 1px solid #d4c8b0; color: var(--ink); padding: 14px 18px; font-family: var(--ff-body); font-size: 0.9rem; border-radius: 2px; outline: none; transition: border-color 0.2s; }
+    .form-control:focus { border-color: var(--amber); }
+    textarea.form-control { min-height: 130px; resize: vertical; }
+    .form-submit { background: var(--amber); color: #fff; padding: 15px 42px; border: none; font-family: var(--ff-body); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background 0.2s, transform 0.15s; }
+    .form-submit:hover { background: var(--amber-l); transform: translateY(-1px); }
+    .form-note { font-size: 0.74rem; color: var(--mid); margin-top: 10px; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <span class="nav-logo" id="nav-logo">OlliesWorld</span>
+  <ul class="nav-links" id="nav-links">
+    <li><button data-page="home" class="active">Home</button></li>
+    <li><button data-page="about">About</button></li>
+    <li><button data-page="services">Services</button></li>
+    <li><button data-page="work">Work</button></li>
+    <li><button data-page="blog">Ollie's Corner</button></li>
+    <li><button data-page="contact" class="nav-cta-btn">Get in Touch</button></li>
+  </ul>
+</nav>
+
+<div id="app">
+
+  <!-- — HOME — -->
+  <div class="page active" data-page="home">
+
+    <!-- Hero -->
+    <section class="home-hero">
+      <div class="home-hero-left">
+        <div class="hero-badge reveal">
+          <div class="hero-badge-dot"></div>
+          <span class="hero-badge-txt">Est. from 2ft off the ground</span>
+        </div>
+        <div class="label reveal" data-delay="1">Content Marketing Agency</div>
+        <h1 class="home-h1 reveal" data-delay="2">Big ideas.<br/><em>Ground-level</em><br/>thinking.</h1>
+        <p class="home-sub reveal" data-delay="3">Hi. I'm Ollie. I'm a marketing strategist, content visionary, and enthusiastic treat-seeker. I see the world differently — mostly knees and table legs — and that perspective? Pure gold.</p>
+        <div class="hero-btns reveal" data-delay="4">
+          <button class="btn-amber" data-page="work">See Our Work</button>
+          <button class="btn-outline" data-page="about">Meet Ollie →</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-img-fill placeholder-box stripe-bg">
+          <span class="placeholder-label">[ Ollie in harness<br/>landscape background<br/>hero photo ]</span>
+        </div>
+        <div class="hero-amber-wash"></div>
+        <div class="hero-quote-overlay">
+          <p>"Life is either a daring adventure or nothing at all." — Helen Keller</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="home-marquee">
+      <div class="home-marquee-inner">
+        <span class="marquee-item">Belly Rub Strategy</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Treat-Driven Growth</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Low-to-the-Ground SEO</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Sniff-First Research</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Tail-Wagging Copy</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Fetch-and-Iterate</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Belly Rub Strategy</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Treat-Driven Growth</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Low-to-the-Ground SEO</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Sniff-First Research</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Tail-Wagging Copy</span><span class="marquee-div">…</span>
+        <span class="marquee-item">Fetch-and-Iterate</span><span class="marquee-div">…</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="home-stats">
+      <div class="inner">
+        <div class="stats-row">
+          <div class="stat-item reveal"><div class="stat-big" data-count="47">0</div><div class="stat-desc">Clients who gave us<br/>belly rubs after</div></div>
+          <div class="stat-item reveal" data-delay="1"><div class="stat-big" data-count="312">0</div><div class="stat-desc">Articles written from<br/>ground level up</div></div>
+          <div class="stat-item reveal" data-delay="2"><div class="stat-big" data-count="8">0</div><div class="stat-desc">Years sniffing out<br/>great content</div></div>
+          <div class="stat-item reveal" data-delay="3"><div class="stat-big">∞</div><div class="stat-desc">Treats consumed<br/>during strategy</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intro -->
+    <div class="home-intro">
+      <div class="inner">
+        <div class="home-intro-grid">
+          <div class="reveal-left">
+            <div class="home-intro-img placeholder-box stripe-bg">
+              <span class="placeholder-label">[ Ollie portrait<br/>close-up face ]</span>
+            </div>
+            <div class="home-intro-accent"></div>
+            <div class="home-intro-pill">
+              <div class="pill-num">4"</div>
+              <div class="pill-lbl">from the ground</div>
+            </div>
+          </div>
+          <div class="reveal-right">
+            <div class="label">About OlliesWorld</div>
+            <h2 class="h2">A different kind<br/>of agency founder.</h2>
+            <br/>
+            <p class="body-lg">Most agencies are run by people staring at screens all day. I've spent years staring at ankles — and honestly? <strong style="color:var(--slate-d)">The view down here is underrated.</strong></p>
+            <p class="body-lg">We work close to the ground so your brand can reach new heights. Curious, persistent, treat-motivated — that's the OlliesWorld method.</p>
+            <div class="home-callout">"I may not be able to see over the desk, but I can absolutely see through a weak content strategy."</div>
+            <div style="margin-top:36px;">
+              <button class="btn-amber" data-page="about">Read Ollie's Story →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services Preview -->
+    <div class="home-services-prev">
+      <div class="inner">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+          <div>
+            <div class="label">What We Do</div>
+            <h2 class="h2">Services built for<br/>brands worth chasing.</h2>
+          </div>
+          <button class="btn-amber" data-page="services" style="margin-bottom:4px;">All Services →</button>
+        </div>
+        <div class="home-services-grid">
+          <div class="home-svc-card reveal" data-delay="1">
+            <div class="svc-num">01</div>
+            <div class="svc-title">Content Strategy</div>
+            <p class="svc-desc">A content plan so sniff-tested, your audience can't resist. Like a great fetch route — varied terrain, consistent direction.</p>
+            <div class="svc-pov">"I once found a treat behind a couch cushion 3 days after it fell. That's SEO."</div>
+          </div>
+          <div class="home-svc-card reveal" data-delay="2">
+            <div class="svc-num">02</div>
+            <div class="svc-title">Brand Voice & Tone</div>
+            <p class="svc-desc">Your brand should sound like someone your audience wants to wrestle with — in the good, loyal, keep-coming-back way.</p>
+            <div class="svc-pov">"I have three distinct barks. Each is perfectly calibrated. That's brand voice."</div>
+          </div>
+          <div class="home-svc-card reveal" data-delay="3">
+            <div class="svc-num">03</div>
+            <div class="svc-title">SEO & Distribution</div>
+            <p class="svc-desc">Persistence. I have been trying to get belly rubs from one particular human for six months. I will get there. Your content will rank.</p>
+            <div class="svc-pov">"Every walk is a reconnaissance mission. So is every keyword audit."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Work -->
+    <div class="home-work">
+      <div class="inner">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;">
+          <div>
+            <div class="label">Selected Work</div>
+            <h2 class="h2">Sniffed out.<br/>Fetched. Delivered.</h2>
+          </div>
+          <button class="btn-amber" data-page="work" style="margin-bottom:4px;">All Work →</button>
+        </div>
+        <div class="home-work-strip reveal">
+          <div class="hw-card hw-card-main">
+            <div class="hw-card-bg placeholder-box stripe-bg" style="background:var(--slate-l);"></div>
+            <div class="hw-card-overlay">
+              <div class="hw-cat">Brand Strategy & Content</div>
+              <div class="hw-title">The Backyard Collective — From scrappy to scroll-stopping</div>
+              <div class="hw-sub">12-month content transformation · 3× organic growth</div>
+            </div>
+          </div>
+          <div class="hw-card-side">
+            <div class="hw-card">
+              <div class="hw-card-bg placeholder-box stripe-bg" style="background:#2d5060;"></div>
+              <div class="hw-card-overlay">
+                <div class="hw-cat">SEO & Editorial</div>
+                <div class="hw-title">PawsFirst Nutrition</div>
+                <div class="hw-sub">62 ranked keywords · 8× traffic</div>
+              </div>
+            </div>
+            <div class="hw-card">
+              <div class="hw-card-bg placeholder-box stripe-bg" style="background:#3a5540;"></div>
+              <div class="hw-card-overlay">
+                <div class="hw-cat">Voice & Tone</div>
+                <div class="hw-title">MuddyBoots Market</div>
+                <div class="hw-sub">Full brand voice system · 6 weeks</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Journey Band -->
+    <div class="journey-band">
+      <div class="inner">
+        <div class="journey-grid reveal">
+          <div>
+            <div class="jb-label">The Full Story</div>
+            <h2 class="jb-h2">Follow Ollie's journey<br/>from the very start.</h2>
+            <p class="jb-sub">Before the agency, before the strategy decks, before even the first treat — there was a story. See how OlliesWorld began, one sniff at a time.</p>
+          </div>
+          <a href="../olliesworld2.0/index.html" class="btn-white">See the Journey →</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-brand">
+        <div class="footer-logo-txt">OlliesWorld</div>
+        <div class="footer-tagline">Marketing from the ground up.</div>
+      </div>
+      <div class="footer-nav">
+        <button data-page="about">About</button>
+        <button data-page="services">Services</button>
+        <button data-page="work">Work</button>
+        <button data-page="blog">Ollie's Corner</button>
+        <button data-page="contact">Contact</button>
+      </div>
+      <div class="footer-copy">© 2026 OlliesWorld. All treats consumed.</div>
+    </footer>
+  </div>
+
+  <!-- — ABOUT — -->
+  <div class="page" data-page="about">
+
+    <!-- Hero -->
+    <section class="about-hero">
+      <div class="inner">
+        <div class="about-hero-grid">
+          <div>
+            <div class="about-eyebrow reveal">About OlliesWorld</div>
+            <h1 class="about-h1 reveal" data-delay="1">The world looks<br/><em>different</em> from<br/>down here.</h1>
+            <p class="about-hero-sub reveal" data-delay="2">I'm Ollie. Strategist, sniff-tester, enthusiast of belly rubs and the underdog perspective. I started OlliesWorld because I noticed what everyone else was stepping over.</p>
+          </div>
+          <div class="reveal-right">
+            <div class="about-hero-img placeholder-box stripe-bg">
+              <span class="placeholder-label">[ Ollie full body portrait<br/>proud stance, harness ]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story -->
+    <section class="about-story">
+      <div class="inner">
+        <div class="about-story-grid">
+          <div class="reveal-left">
+            <div class="label" style="margin-bottom:32px;">Timeline</div>
+            <div class="timeline-item">
+              <div class="timeline-year">Year One</div>
+              <div class="timeline-txt">Discovered that the world contains treats, belly rubs, and an alarming number of people who don't capitalize on either.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">Year Three</div>
+              <div class="timeline-txt">Developed the foundational Sniff-First research methodology. Tested extensively on park benches, hiking trails, and the backs of couches.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">Year Five</div>
+              <div class="timeline-txt">First client. A scrappy outdoor brand who needed someone willing to get low, go deep, and keep chasing the story past where everyone else gave up.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">Today</div>
+              <div class="timeline-txt">47 clients. 312 published pieces. One very confident 4-inch vantage point. Still looking for belly rubs.</div>
+            </div>
+          </div>
+          <div class="reveal-right">
+            <div class="label">The Story</div>
+            <h2 class="h2" style="margin-bottom:32px;">Started low.<br/>Aimed high.</h2>
+            <div class="about-story-body">
+              <p>Most marketing agencies are built on lofty vision statements and standing desks. OlliesWorld was built from <strong>much closer to the floor</strong> — and we think that's our greatest advantage.</p>
+              <p>Being short isn't a limitation. It's a perspective. When you're small, you notice what tall people step over: the details, the texture, the tiny moments that actually connect with real humans. <strong>That's where the best content lives.</strong></p>
+              <p>I started this agency because I believed that great marketing requires curiosity above all else. The willingness to sniff out a story even when others have moved on. The persistence to chase a good idea across a muddy field. The enthusiasm to greet every new brief like it's the best brief you've ever seen.</p>
+              <p>That's the OlliesWorld way. <strong>Curious. Persistent. Deeply motivated by treats and the occasional wrestling match.</strong></p>
+            </div>
+            <div class="about-tags" style="margin-top:28px;">
+              <span class="tag">Content Strategy</span>
+              <span class="tag">Brand Voice</span>
+              <span class="tag">Very Good Boy</span>
+              <span class="tag">SEO</span>
+              <span class="tag">Belly Rub Theory</span>
+              <span class="tag">Treat Procurement</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="about-values">
+      <div class="inner">
+        <div class="label">How We Work</div>
+        <h2 class="h2 light">Values that guide every project.</h2>
+        <div class="values-grid">
+          <div class="value-card reveal" data-delay="1">
+            <div class="value-icon">🐾</div>
+            <div class="value-title">Sniff First</div>
+            <p class="value-desc">Every project starts with research so thorough it borders on obsessive. We find the scent of a real story before we write a single word.</p>
+          </div>
+          <div class="value-card reveal" data-delay="2">
+            <div class="value-icon">🦴</div>
+            <div class="value-title">Chase the Good Stuff</div>
+            <p class="value-desc">We don't settle for the easy angle. We pursue the idea worth having, even when it means running harder than everyone else to get there.</p>
+          </div>
+          <div class="value-card reveal" data-delay="3">
+            <div class="value-icon">👣</div>
+            <div class="value-title">Leave a Trail</div>
+            <p class="value-desc">Great content should be findable, followable, and worth following. We build content ecosystems that keep paying off long after we deliver.</p>
+          </div>
+          <div class="value-card reveal" data-delay="4">
+            <div class="value-icon">🤼</div>
+            <div class="value-title">Wrestle With It</div>
+            <p class="value-desc">We take strategy seriously. We push back, we debate, we wrestle with ideas until the right one wins. Friendly. Fierce. Worth it.</p>
+          </div>
+          <div class="value-card reveal" data-delay="5">
+            <div class="value-icon">🎯</div>
+            <div class="value-title">Earn Every Treat</div>
+            <p class="value-desc">Results matter. We hold ourselves to standards we can measure — traffic, conversion, engagement — because good work deserves good rewards.</p>
+          </div>
+          <div class="value-card reveal" data-delay="6">
+            <div class="value-icon">❤️</div>
+            <div class="value-title">Show Up Warm</div>
+            <p class="value-desc">Every client, every brief, every email gets our full enthusiasm. We work with people we genuinely like, on things we genuinely care about.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="about-team">
+      <div class="inner">
+        <div class="label">The Team</div>
+        <h2 class="h2" style="margin-bottom: 56px;">A small pack.<br/>Big output.</h2>
+        <div class="team-grid">
+          <div class="reveal" data-delay="1">
+            <div class="team-img placeholder-box stripe-bg"><span class="placeholder-label">[ Ollie headshot ]</span></div>
+            <div class="team-name">Ollie</div>
+            <div class="team-role">Founder & Chief Strategist</div>
+            <p class="team-bio">Visionary. Treat-seeker. Will wrestle you for a bad headline. 4 inches of pure strategy.</p>
+          </div>
+          <div class="reveal" data-delay="2">
+            <div class="team-img placeholder-box stripe-bg"><span class="placeholder-label">[ team member ]</span></div>
+            <div class="team-name">Scout</div>
+            <div class="team-role">Head of Research</div>
+            <p class="team-bio">Goes everywhere, misses nothing. Obsessive about finding the real story hiding in plain sight.</p>
+          </div>
+          <div class="reveal" data-delay="3">
+            <div class="team-img placeholder-box stripe-bg"><span class="placeholder-label">[ team member ]</span></div>
+            <div class="team-name">Biscuit</div>
+            <div class="team-role">Senior Copywriter</div>
+            <p class="team-bio">Writes like it's the last treat on the shelf. Fast, precise, and worth chasing across any format.</p>
+          </div>
+          <div class="reveal" data-delay="4">
+            <div class="team-img placeholder-box stripe-bg"><span class="placeholder-label">[ team member ]</span></div>
+            <div class="team-name">Pepper</div>
+            <div class="team-role">Analytics & Distribution</div>
+            <p class="team-bio">Numbers dog. Turns data into decisions and dashboards into stories. Inexplicably great at pivot tables.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-brand"><div class="footer-logo-txt">OlliesWorld</div><div class="footer-tagline">Marketing from the ground up.</div></div>
+      <div class="footer-nav"><button data-page="home">Home</button><button data-page="services">Services</button><button data-page="work">Work</button><button data-page="blog">Blog</button><button data-page="contact">Contact</button></div>
+      <div class="footer-copy">© 2026 OlliesWorld.</div>
+    </footer>
+  </div>
+
+  <!-- — SERVICES — -->
+  <div class="page" data-page="services">
+
+    <section class="services-hero">
+      <div class="inner">
+        <div class="label reveal">What We Do</div>
+        <h1 class="about-h1 reveal" data-delay="1" style="max-width:700px;">Services that work<br/>as hard as a dog<br/>who <em>really</em> wants that treat.</h1>
+        <p class="about-hero-sub reveal" data-delay="2" style="margin-top:20px;">Six core offerings. All built from ground-level curiosity and treat-tested rigor.</p>
+      </div>
+    </section>
+
+    <section class="services-all">
+      <div class="inner">
+        <div class="services-list">
+
+          <div class="service-row reveal">
+            <div class="service-row-num">01</div>
+            <div class="service-row-left">
+              <div class="service-row-title">Content Strategy</div>
+              <div class="service-row-tags">
+                <span class="service-tag">Editorial Planning</span>
+                <span class="service-tag">Audience Research</span>
+                <span class="service-tag">Content Audits</span>
+              </div>
+            </div>
+            <div class="service-row-right">
+              <p class="service-row-desc">We map out a content plan so thorough, so sniff-tested, that your audience won't be able to resist following. Long-form, short-form, every form — like a great fetch route with varied terrain and consistent direction. We start by digging into your audience, your competitors, and the stories no one else is telling yet.</p>
+              <div class="service-row-pov">"I once found a treat behind a couch cushion three days after it fell there. That's what a good content audit looks like."</div>
+            </div>
+          </div>
+
+          <div class="service-row reveal">
+            <div class="service-row-num">02</div>
+            <div class="service-row-left">
+              <div class="service-row-title">Brand Voice & Tone</div>
+              <div class="service-row-tags">
+                <span class="service-tag">Voice Guidelines</span>
+                <span class="service-tag">Messaging Framework</span>
+                <span class="service-tag">Tone Workshops</span>
+              </div>
+            </div>
+            <div class="service-row-right">
+              <p class="service-row-desc">Your brand should sound like someone your audience wants to wrestle with — in the playful, loyal, keep-coming-back kind of way. We find your voice, document it with obsessive precision, and train your whole team to use it. The result: consistent, unmistakable brand communication across every channel.</p>
+              <div class="service-row-pov">"I have three distinct barks. Each is perfectly calibrated for a specific situation. That's brand voice."</div>
+            </div>
+          </div>
+
+          <div class="service-row reveal">
+            <div class="service-row-num">03</div>
+            <div class="service-row-left">
+              <div class="service-row-title">SEO & Distribution</div>
+              <div class="service-row-tags">
+                <span class="service-tag">Keyword Research</span>
+                <span class="service-tag">Technical SEO</span>
+                <span class="service-tag">Link Building</span>
+              </div>
+            </div>
+            <div class="service-row-right">
+              <p class="service-row-desc">Getting your content seen requires persistence above all else. I have been trying to get belly rubs from one particular human for six months. I will get there. That same energy goes into your rankings. We do the technical work, the link building, and the distribution strategy that turns great content into consistent traffic.</p>
+              <div class="service-row-pov">"Every walk is a reconnaissance mission. Every park bench is a keyword opportunity."</div>
+            </div>
+          </div>
+
+          <div class="service-row reveal">
+            <div class="service-row-num">04</div>
+            <div class="service-row-left">
+              <div class="service-row-title">Editorial & Copywriting</div>
+              <div class="service-row-tags">
+                <span class="service-tag">Long-form Articles</span>
+                <span class="service-tag">Case Studies</span>
+                <span class="service-tag">Web Copy</span>
+              </div>
+            </div>
+            <div class="service-row-right">
+              <p class="service-row-desc">We write things people actually want to read. No fluff. No filler. Every word earns its place — like treats. You don't just hand them out; you make them mean something. From thought leadership to landing pages, we write with the kind of specificity that makes readers stop scrolling and start paying attention.</p>
+              <div class="service-row-pov">"I could stare at a treat for 45 minutes. Make your content that compelling."</div>
+            </div>
+          </div>
+
+          <div class="service-row reveal">
+            <div class="service-row-num">05</div>
+            <div class="service-row-left">
+              <div class="service-row-title">Social & Community</div>
+              <div class="service-row-tags">
+                <span class="service-tag">Content Calendars</span>
+                <span class="service-tag">Community Management</span>
+                <span class="service-tag">Engagement Strategy</span>
+              </div>
+            </div>
+            <div class="service-row-right">
+              <p class="service-row-desc">Building a community is about showing up, being warm, and occasionally losing your mind with excitement when someone new comes along. We bring all of that energy — strategically — to your channels. Content calendars, community guidelines, engagement playbooks, and the genuine enthusiasm to pull it off every single day.</p>
+              <div class="service-row-pov">"I greet every new person like they're the best person I've ever met. That's community management."</div>
+            </div>
+          </div>
+
+          <div class="service-row reveal">
+            <div class="service-row-num">06</div>
+            <div class="service-row-left">
+              <div class="service-row-title">Analytics & Reporting</div>
+              <div class="service-row-tags">
+                <span class="service-tag">Performance Dashboards</span>
+                <span class="service-tag">Monthly Reporting</span>
+                <span class="service-tag">Attribution Modeling</span>
+              </div>
+            </div>
+            <div class="service-row-right">
+              <p class="service-row-desc">Numbers should tell a story, not just fill a slide. We translate performance data into clear decisions — what to double down on, what to drop, and what to sniff out next. Custom dashboards, monthly reviews, and the kind of honest analysis that helps you get smarter about every piece of content you publish.</p>
+              <div class="service-row-pov">"I know exactly when dinner is 3 minutes away. That's predictive analytics."</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="services-process">
+      <div class="inner">
+        <div class="label">How We Work</div>
+        <h2 class="h2 light" style="margin-bottom:56px;">The OlliesWorld process.</h2>
+        <div class="process-steps">
+          <div class="process-step reveal" data-delay="1">
+            <div class="process-n">01</div>
+            <div class="process-title">Sniff It Out</div>
+            <p class="process-desc">We start with deep research: your audience, your competitors, your gaps. The stuff others walk past.</p>
+          </div>
+          <div class="process-step reveal" data-delay="2">
+            <div class="process-n">02</div>
+            <div class="process-title">Map the Terrain</div>
+            <p class="process-desc">A strategy built around your real goals. Not a template. A real plan that fits your situation.</p>
+          </div>
+          <div class="process-step reveal" data-delay="3">
+            <div class="process-n">03</div>
+            <div class="process-title">Fetch & Deliver</div>
+            <p class="process-desc">We create, refine, and deliver. On time. With the enthusiasm of a dog who just heard "walkies."</p>
+          </div>
+          <div class="process-step reveal" data-delay="4">
+            <div class="process-n">04</div>
+            <div class="process-title">Measure & Iterate</div>
+            <p class="process-desc">We track what works, cut what doesn't, and keep improving. Every treat earns the next one.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-brand"><div class="footer-logo-txt">OlliesWorld</div><div class="footer-tagline">Marketing from the ground up.</div></div>
+      <div class="footer-nav"><button data-page="home">Home</button><button data-page="about">About</button><button data-page="work">Work</button><button data-page="blog">Blog</button><button data-page="contact">Contact</button></div>
+      <div class="footer-copy">© 2026 OlliesWorld.</div>
+    </footer>
+  </div>
+
+  <!-- — WORK — -->
+  <div class="page" data-page="work">
+
+    <section class="work-hero">
+      <div class="inner">
+        <div class="label reveal">Selected Work</div>
+        <h1 class="about-h1 reveal" data-delay="1">Sniffed out.<br/>Fetched. <em>Delivered.</em></h1>
+        <p class="about-hero-sub reveal" data-delay="2" style="margin-top:20px;">Every project starts with a problem worth chasing and ends with work worth showing.</p>
+      </div>
+    </section>
+
+    <section class="work-grid-full">
+      <div class="inner">
+        <div class="work-mosaic">
+
+          <div class="wm-card big reveal">
+            <div class="wm-bg placeholder-box stripe-bg" style="background:var(--slate-l);"></div>
+            <div class="wm-overlay">
+              <div class="wm-cat">Brand Strategy & Content · 2025</div>
+              <div class="wm-title">The Backyard Collective — From scrappy to scroll-stopping</div>
+              <div class="wm-meta">12-month content transformation · 3× organic growth · 47 published pieces</div>
+              <div class="wm-tags"><span class="wm-tag">Content Strategy</span><span class="wm-tag">Editorial</span><span class="wm-tag">SEO</span></div>
+            </div>
+          </div>
+
+          <div class="wm-card tall reveal" data-delay="1">
+            <div class="wm-bg placeholder-box stripe-bg" style="background:#2d5060;"></div>
+            <div class="wm-overlay">
+              <div class="wm-cat">SEO & Editorial · 2024</div>
+              <div class="wm-title">PawsFirst Nutrition — Found where it counts</div>
+              <div class="wm-meta">62 ranked keywords · 8× domain traffic</div>
+              <div class="wm-tags"><span class="wm-tag">SEO</span><span class="wm-tag">Long-form</span></div>
+            </div>
+          </div>
+
+          <div class="wm-card tall reveal" data-delay="2">
+            <div class="wm-bg placeholder-box stripe-bg" style="background:#3a5540;"></div>
+            <div class="wm-overlay">
+              <div class="wm-cat">Voice & Tone · 2024</div>
+              <div class="wm-title">MuddyBoots Market — A brand that sounds like a friend</div>
+              <div class="wm-meta">Full brand voice system · launched in 6 weeks</div>
+              <div class="wm-tags"><span class="wm-tag">Brand Voice</span><span class="wm-tag">Tone Guidelines</span></div>
+            </div>
+          </div>
+
+          <div class="wm-card wide reveal" data-delay="1">
+            <div class="wm-bg placeholder-box stripe-bg" style="background:#4a3a5a;"></div>
+            <div class="wm-overlay">
+              <div class="wm-cat">Social & Community · 2024</div>
+              <div class="wm-title">Fernwood Coffee — Built from the ground beans up</div>
+              <div class="wm-meta">Community grew 400% in 9 months</div>
+              <div class="wm-tags"><span class="wm-tag">Social Strategy</span><span class="wm-tag">Community</span></div>
+            </div>
+          </div>
+
+          <div class="wm-card wide reveal" data-delay="2">
+            <div class="wm-bg placeholder-box stripe-bg" style="background:#3a4a3a;"></div>
+            <div class="wm-overlay">
+              <div class="wm-cat">Analytics & Content · 2023</div>
+              <div class="wm-title">TerraFirm — Measuring what matters, ignoring what doesn't</div>
+              <div class="wm-meta">Custom dashboard · 20% increase in content ROI</div>
+              <div class="wm-tags"><span class="wm-tag">Analytics</span><span class="wm-tag">Strategy</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-brand"><div class="footer-logo-txt">OlliesWorld</div><div class="footer-tagline">Marketing from the ground up.</div></div>
+      <div class="footer-nav"><button data-page="home">Home</button><button data-page="about">About</button><button data-page="services">Services</button><button data-page="blog">Blog</button><button data-page="contact">Contact</button></div>
+      <div class="footer-copy">© 2026 OlliesWorld.</div>
+    </footer>
+  </div>
+
+  <!-- — BLOG — -->
+  <div class="page" data-page="blog">
+
+    <section class="blog-hero">
+      <div class="inner">
+        <div class="label reveal">Ollie's Corner</div>
+        <h1 class="about-h1 reveal" data-delay="1">Thoughts from<br/>close to the <em>ground.</em></h1>
+        <p class="about-hero-sub reveal" data-delay="2" style="margin-top:20px;">Marketing strategy, content wisdom, and occasional treatise on the art of the belly rub. Written from below desk level.</p>
+      </div>
+    </section>
+
+    <section class="blog-featured">
+      <div class="inner">
+        <div class="label" style="margin-bottom:28px;">Featured Posts</div>
+        <div class="blog-featured-grid reveal">
+          <div class="blog-feat-main">
+            <div class="blog-feat-bg placeholder-box stripe-bg"></div>
+            <div class="blog-feat-overlay">
+              <div class="blog-cat">Strategy</div>
+              <div class="blog-title" style="font-family:var(--ff-head);font-size:1.6rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:8px;">Why your content strategy needs more belly rub energy</div>
+              <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);">Ollie · May 1, 2026 · 5 min read</div>
+            </div>
+          </div>
+          <div class="blog-feat-side">
+            <div class="blog-feat-sm">
+              <div class="bfs-bg placeholder-box stripe-bg" style="background:var(--slate-l);"></div>
+              <div class="bfs-overlay">
+                <div class="blog-cat">SEO</div>
+                <div style="font-family:var(--ff-head);font-size:1.05rem;font-weight:700;color:#fff;line-height:1.3;">Low-to-the-ground SEO: seeing what competitors miss</div>
+              </div>
+            </div>
+            <div class="blog-feat-sm">
+              <div class="bfs-bg placeholder-box stripe-bg" style="background:#3a5540;"></div>
+              <div class="bfs-overlay">
+                <div class="blog-cat">Brand Voice</div>
+                <div style="font-family:var(--ff-head);font-size:1.05rem;font-weight:700;color:#fff;line-height:1.3;">The treat test: is your copy worth chasing?</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-all">
+      <div class="inner">
+        <div class="label" style="margin-bottom:40px;">All Posts</div>
+        <div class="blog-grid">
+          <div class="blog-card reveal" data-delay="1">
+            <div class="blog-card-img placeholder-box stripe-bg"></div>
+            <div class="blog-card-body">
+              <div class="blog-cat">Strategy</div>
+              <div class="blog-title">Why your content strategy needs more belly rub energy</div>
+              <p class="blog-excerpt">The best brands make you feel something. Here's what I've learned from years of requesting belly rubs with varying degrees of success.</p>
+              <div class="blog-meta"><div class="blog-avatar">O</div><div class="blog-meta-txt">Ollie · May 1, 2026 · 5 min</div></div>
+            </div>
+          </div>
+          <div class="blog-card reveal" data-delay="2">
+            <div class="blog-card-img placeholder-box stripe-bg" style="background:var(--slate-l);"></div>
+            <div class="blog-card-body">
+              <div class="blog-cat">SEO</div>
+              <div class="blog-title">Low-to-the-ground SEO: seeing what your competitors miss</div>
+              <p class="blog-excerpt">Keywords hiding at ankle height. Stories dropped in the corner. The view from down here is full of opportunity your taller competitors stepped over.</p>
+              <div class="blog-meta"><div class="blog-avatar">O</div><div class="blog-meta-txt">Ollie · Apr 22, 2026 · 7 min</div></div>
+            </div>
+          </div>
+          <div class="blog-card reveal" data-delay="3">
+            <div class="blog-card-img placeholder-box stripe-bg" style="background:#3a5540;"></div>
+            <div class="blog-card-body">
+              <div class="blog-cat">Brand Voice</div>
+              <div class="blog-title">The treat test: how to know if your copy is worth chasing</div>
+              <p class="blog-excerpt">Would I chase it across a muddy field? That's my filter. Here's the full framework for evaluating whether your content has real pull.</p>
+              <div class="blog-meta"><div class="blog-avatar">O</div><div class="blog-meta-txt">Ollie · Apr 10, 2026 · 4 min</div></div>
+            </div>
+          </div>
+          <div class="blog-card reveal" data-delay="1">
+            <div class="blog-card-img placeholder-box stripe-bg" style="background:#4a3a5a;"></div>
+            <div class="blog-card-body">
+              <div class="blog-cat">Operations</div>
+              <div class="blog-title">Running a creative agency when you can't see over the desk</div>
+              <p class="blog-excerpt">Height is a state of mind. Also a physical fact I work around daily. Here's how being small has made OlliesWorld a better business.</p>
+              <div class="blog-meta"><div class="blog-avatar">O</div><div class="blog-meta-txt">Ollie · Mar 28, 2026 · 6 min</div></div>
+            </div>
+          </div>
+          <div class="blog-card reveal" data-delay="2">
+            <div class="blog-card-img placeholder-box stripe-bg" style="background:#5a4535;"></div>
+            <div class="blog-card-body">
+              <div class="blog-cat">Community</div>
+              <div class="blog-title">On wrestling: what competitive play teaches us about brand loyalty</div>
+              <p class="blog-excerpt">I wrestle. I love it. And it turns out the psychology of a good play-fight maps remarkably well onto community-building strategy.</p>
+              <div class="blog-meta"><div class="blog-avatar">O</div><div class="blog-meta-txt">Ollie · Mar 15, 2026 · 8 min</div></div>
+            </div>
+          </div>
+          <div class="blog-card reveal" data-delay="3">
+            <div class="blog-card-img placeholder-box stripe-bg" style="background:#2d4a40;"></div>
+            <div class="blog-card-body">
+              <div class="blog-cat">Analytics</div>
+              <div class="blog-title">I tracked 12 months of content performance so you don't have to</div>
+              <p class="blog-excerpt">The patterns, the surprises, and the one data point that changed how we write everything. With a bonus section on treat-based incentive programs.</p>
+              <div class="blog-meta"><div class="blog-avatar">O</div><div class="blog-meta-txt">Ollie · Mar 3, 2026 · 10 min</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-brand"><div class="footer-logo-txt">OlliesWorld</div><div class="footer-tagline">Marketing from the ground up.</div></div>
+      <div class="footer-nav"><button data-page="home">Home</button><button data-page="about">About</button><button data-page="services">Services</button><button data-page="work">Work</button><button data-page="contact">Contact</button></div>
+      <div class="footer-copy">© 2026 OlliesWorld.</div>
+    </footer>
+  </div>
+
+  <!-- — CONTACT — -->
+  <div class="page" data-page="contact">
+
+    <section class="contact-hero">
+      <div class="inner">
+        <div class="label reveal">Get in Touch</div>
+        <h1 class="about-h1 reveal" data-delay="1">Let's work<br/><em>together.</em></h1>
+        <p class="about-hero-sub reveal" data-delay="2" style="margin-top:20px;">Whether you need a full content strategy or just want to tell me I'm a good boy — I respond faster than I respond to "treat."</p>
+      </div>
+    </section>
+
+    <section class="contact-body">
+      <div class="inner">
+        <div class="contact-layout">
+          <div class="contact-info reveal-left">
+            <div class="label" style="margin-bottom:32px;">Contact Details</div>
+            <div class="contact-info-item">
+              <div class="ci-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#c4762a" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="1"/><polyline points="3,5 12,13 21,5"/></svg>
+              </div>
+              <div><div class="ci-label">Email</div><div class="ci-val"><a href="mailto:woof@olliesworld.co">woof@olliesworld.co</a></div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="ci-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#c4762a" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C7 2 4 6.5 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-3.5-3-8-8-8z"/></svg>
+              </div>
+              <div><div class="ci-label">Based</div><div class="ci-val">Somewhere low to the ground</div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="ci-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#c4762a" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+              </div>
+              <div><div class="ci-label">Response Time</div><div class="ci-val">Within 24hrs (or one nap)</div></div>
+            </div>
+            <div class="contact-callout">
+              "I may take a moment to reply if I'm mid-wrestle or awaiting a belly rub. Bear with me. I always come back."
+            </div>
+            <div style="margin-top:40px;">
+              <div class="label" style="margin-bottom:18px;">New Business</div>
+              <p style="font-size:0.9rem;line-height:1.75;color:#5a7080;">We take on 4–6 new clients per year. We're selective — not because we're precious, but because good work takes full attention. If you're reading this, you're probably already our kind of people.</p>
+            </div>
+          </div>
+          <div class="contact-form-wrap reveal-right">
+            <div class="form-row-2">
+              <div><label class="form-label">First Name</label><input type="text" class="form-control" placeholder="Your name" /></div>
+              <div><label class="form-label">Company</label><input type="text" class="form-control" placeholder="Your company" /></div>
+            </div>
+            <div class="form-row"><label class="form-label">Email</label><input type="email" class="form-control" placeholder="you@company.com" /></div>
+            <div class="form-row">
+              <label class="form-label">What do you need?</label>
+              <select class="form-control">
+                <option value="">Select a service...</option>
+                <option>Content Strategy</option>
+                <option>Brand Voice &amp; Tone</option>
+                <option>SEO &amp; Distribution</option>
+                <option>Editorial &amp; Copywriting</option>
+                <option>Social &amp; Community</option>
+                <option>Analytics &amp; Reporting</option>
+                <option>Belly Rubs (non-commercial)</option>
+              </select>
+            </div>
+            <div class="form-row"><label class="form-label">Budget Range</label>
+              <select class="form-control">
+                <option value="">Select a range...</option>
+                <option>Under $5k/month</option>
+                <option>$5k–$10k/month</option>
+                <option>$10k–$20k/month</option>
+                <option>$20k+/month</option>
+                <option>One bag of treats (let's talk)</option>
+              </select>
+            </div>
+            <div class="form-row"><label class="form-label">Tell me more</label><textarea class="form-control" placeholder="What's the challenge? What are you working toward? Any treats involved?"></textarea></div>
+            <button class="form-submit">Send it →</button>
+            <p class="form-note">No spam. Just good-boy energy and a prompt reply.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-brand"><div class="footer-logo-txt">OlliesWorld</div><div class="footer-tagline">Marketing from the ground up.</div></div>
+      <div class="footer-nav"><button data-page="home">Home</button><button data-page="about">About</button><button data-page="services">Services</button><button data-page="work">Work</button><button data-page="blog">Blog</button></div>
+      <div class="footer-copy">© 2026 OlliesWorld.</div>
+    </footer>
+  </div>
+
+</div><!-- #app -->
+
+<script>
+// — ROUTER —
+let currentPage = localStorage.getItem('ow-page') || 'home';
+
+function navigate(to, push = true) {
+  const next = document.querySelector(`.page[data-page="${to}"]`);
+  if (!next || to === currentPage) return;
+
+  const cur = document.querySelector(`.page[data-page="${currentPage}"]`);
+  if (cur) {
+    cur.classList.add('exit');
+    setTimeout(() => { cur.classList.remove('active', 'exit'); }, 300);
+  }
+
+  setTimeout(() => {
+    next.classList.add('active');
+    next.scrollTop = 0;
+    setTimeout(() => initReveals(next), 80);
+  }, 150);
+
+  document.querySelectorAll('.nav-links button').forEach(b => {
+    b.classList.toggle('active', b.dataset.page === to);
+  });
+
+  currentPage = to;
+  localStorage.setItem('ow-page', to);
+  if (push) history.pushState({ page: to }, '', '#' + to);
+
+  if (to === 'home') setTimeout(() => animateCounters(), 400);
+}
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('[data-page]');
+  if (btn && btn.dataset.page) {
+    e.preventDefault();
+    navigate(btn.dataset.page);
+  }
+});
+
+window.addEventListener('popstate', e => {
+  const p = e.state?.page || 'home';
+  navigate(p, false);
+});
+
+// — REVEAL ON SCROLL —
+function initReveals(root) {
+  const els = root.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  if (!els.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+}
+
+document.querySelectorAll('.page').forEach(p => initReveals(p));
+
+// — COUNTER ANIMATION —
+function animateCounters() {
+  document.querySelectorAll('.stat-big[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    let start = 0;
+    const dur = 1400;
+    const step = timestamp => {
+      if (!start) start = timestamp;
+      const p = Math.min((timestamp - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+// — INIT —
+const initPage = location.hash.slice(1) || currentPage || 'home';
+document.querySelectorAll('.page').forEach(p => {
+  p.classList.remove('active');
+  if (p.dataset.page === initPage) p.classList.add('active');
+});
+document.querySelectorAll('.nav-links button').forEach(b => {
+  b.classList.toggle('active', b.dataset.page === initPage);
+});
+currentPage = initPage;
+if (initPage === 'home') setTimeout(animateCounters, 600);
+</script>
+
+</body>
+</html>
