@@ -5,10 +5,7 @@ const config = {
   kit: {
     adapter: adapter({ fallback: '404.html' }),
     prerender: {
-      handleHttpError: ({ path, message }) => {
-        if (path.startsWith('/olliesworld2.0')) return;
-        throw new Error(message);
-      }
+      handleHttpError: 'warn'
     }
   }
 };

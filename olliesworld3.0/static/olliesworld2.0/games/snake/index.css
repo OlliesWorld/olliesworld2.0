@@ -1,0 +1,64 @@
+body {
+  background-image: linear-gradient(to bottom, #777777, #a4764a, #6489ac);
+  height: 80vh;
+  max-width: 100%;
+}
+.container {
+  color: #d2691e;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.grid {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 5px solid #d2691e;
+  background: #825f3d;
+}
+.square {
+  width: 20px;
+  height: 20px;
+}
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+
+  width: 150px;
+}
+#start {
+  background: #808000;
+  border: 1px grey solid;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+}
+#start:focus {
+  border: 1px grey solid;
+}
+.snake {
+  background: #808000;
+}
+.apple {
+  position: relative;
+  width: 19px;
+  height: 19px;
+ background-image: url('apple.svg');
+  display: block; 
+  
+  -webkit-border-radius: 63px 63px 63px 63px / 108px 108px 72px 72px;
+  /* border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; */
+}
+
+
+/*Fun Toggle Button by Ahmad Emran*/
+.wrapper {
+  width: 130px;
+  height: 100px;
+  position: absolute;
+  top: 10%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+}
+

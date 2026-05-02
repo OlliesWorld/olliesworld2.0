@@ -180,7 +180,7 @@
         <h2 class="jb-h2">Follow Ollie's journey<br/>from the very start.</h2>
         <p class="jb-sub">Before the agency, before the strategy decks, before even the first treat — there was a story. See how OlliesWorld began, one sniff at a time.</p>
       </div>
-      <a href="../olliesworld2.0/index.html" class="btn-white">See the Journey →</a>
+      <a href="/olliesworld2.0/index.html" class="btn-white">See the Journey →</a>
     </div>
   </div>
 </div>
