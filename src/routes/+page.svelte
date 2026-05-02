@@ -100,12 +100,12 @@
 <!-- Services Preview -->
 <div class="home-services-prev">
   <div class="inner">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+    <div class="section-hdr">
       <div>
         <div class="label">What We Do</div>
         <h2 class="h2">Services built for<br/>brands worth chasing.</h2>
       </div>
-      <a href="/services" class="btn-amber" style="margin-bottom:4px;">All Services →</a>
+      <a href="/services" class="btn-amber">All Services →</a>
     </div>
     <div class="home-services-grid">
       <div class="home-svc-card reveal" data-delay="1">
@@ -133,12 +133,12 @@
 <!-- Featured Work -->
 <div class="home-work">
   <div class="inner">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;">
+    <div class="section-hdr" style="margin-bottom:56px;">
       <div>
         <div class="label">Selected Work</div>
         <h2 class="h2">Sniffed out.<br/>Fetched. Delivered.</h2>
       </div>
-      <a href="/work" class="btn-amber" style="margin-bottom:4px;">All Work →</a>
+      <a href="/work" class="btn-amber">All Work →</a>
     </div>
     <div class="home-work-strip reveal">
       <div class="hw-card hw-card-main">
