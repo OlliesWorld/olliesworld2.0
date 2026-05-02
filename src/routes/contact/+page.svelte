@@ -46,38 +46,41 @@
         </div>
       </div>
       <div class="reveal-right">
-        <div class="form-row-2">
-          <div><label class="form-label" for="fname">First Name</label><input id="fname" type="text" class="form-control" placeholder="Your name" /></div>
-          <div><label class="form-label" for="company">Company</label><input id="company" type="text" class="form-control" placeholder="Your company" /></div>
-        </div>
-        <div class="form-row"><label class="form-label" for="email">Email</label><input id="email" type="email" class="form-control" placeholder="you@company.com" /></div>
-        <div class="form-row">
-          <label class="form-label" for="service">What do you need?</label>
-          <select id="service" class="form-control">
-            <option value="">Select a service...</option>
-            <option>Content Strategy</option>
-            <option>Brand Voice &amp; Tone</option>
-            <option>SEO &amp; Distribution</option>
-            <option>Editorial &amp; Copywriting</option>
-            <option>Social &amp; Community</option>
-            <option>Analytics &amp; Reporting</option>
-            <option>Belly Rubs (non-commercial)</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label class="form-label" for="budget">Budget Range</label>
-          <select id="budget" class="form-control">
-            <option value="">Select a range...</option>
-            <option>Under $5k/month</option>
-            <option>$5k–$10k/month</option>
-            <option>$10k–$20k/month</option>
-            <option>$20k+/month</option>
-            <option>One bag of treats (let's talk)</option>
-          </select>
-        </div>
-        <div class="form-row"><label class="form-label" for="message">Tell me more</label><textarea id="message" class="form-control" placeholder="What's the challenge? What are you working toward? Any treats involved?"></textarea></div>
-        <button class="form-submit">Send it →</button>
-        <p class="form-note">No spam. Just good-boy energy and a prompt reply.</p>
+        <form name="contact" method="POST" netlify>
+          <input type="hidden" name="form-name" value="contact" />
+          <div class="form-row-2">
+            <div><label class="form-label" for="fname">First Name</label><input id="fname" name="fname" type="text" class="form-control" placeholder="Your name" /></div>
+            <div><label class="form-label" for="company">Company</label><input id="company" name="company" type="text" class="form-control" placeholder="Your company" /></div>
+          </div>
+          <div class="form-row"><label class="form-label" for="email">Email</label><input id="email" name="email" type="email" class="form-control" placeholder="you@company.com" /></div>
+          <div class="form-row">
+            <label class="form-label" for="service">What do you need?</label>
+            <select id="service" name="service" class="form-control">
+              <option value="">Select a service...</option>
+              <option>Content Strategy</option>
+              <option>Brand Voice &amp; Tone</option>
+              <option>SEO &amp; Distribution</option>
+              <option>Editorial &amp; Copywriting</option>
+              <option>Social &amp; Community</option>
+              <option>Analytics &amp; Reporting</option>
+              <option>Belly Rubs (non-commercial)</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="budget">Budget Range</label>
+            <select id="budget" name="budget" class="form-control">
+              <option value="">Select a range...</option>
+              <option>Under $5k/month</option>
+              <option>$5k–$10k/month</option>
+              <option>$10k–$20k/month</option>
+              <option>$20k+/month</option>
+              <option>One bag of treats (let's talk)</option>
+            </select>
+          </div>
+          <div class="form-row"><label class="form-label" for="message">Tell me more</label><textarea id="message" name="message" class="form-control" placeholder="What's the challenge? What are you working toward? Any treats involved?"></textarea></div>
+          <button type="submit" class="form-submit">Send it →</button>
+          <p class="form-note">No spam. Just good-boy energy and a prompt reply.</p>
+        </form>
       </div>
     </div>
   </div>

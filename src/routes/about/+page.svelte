@@ -16,7 +16,7 @@
       </div>
       <div class="reveal-right">
         <div class="about-hero-img placeholder-box stripe-bg">
-          <span class="placeholder-label">[ Ollie full body portrait<br/>proud stance, harness ]</span>
+           <img src="/img/ollie_cute.webp" alt="Ollie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
         </div>
       </div>
     </div>
@@ -73,7 +73,8 @@
     <h2 class="h2 light">Values that guide every project.</h2>
     <div class="values-grid">
       <div class="value-card reveal" data-delay="1">
-        <div class="value-icon">🐾</div>
+        <!-- <div class="value-icon">🐾</div> -->
+         <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="40" width="40"><rect width="256" height="256" fill="none"></rect><path d="M240,108a28,28,0,1,1-28-28A28.1,28.1,0,0,1,240,108ZM72,108a28,28,0,1,0-28,28A28.1,28.1,0,0,0,72,108ZM92,88A28,28,0,1,0,64,60,28.1,28.1,0,0,0,92,88Zm72,0a28,28,0,1,0-28-28A28.1,28.1,0,0,0,164,88Zm23.1,60.8a35.3,35.3,0,0,1-16.9-21.1,43.9,43.9,0,0,0-84.4,0A35.5,35.5,0,0,1,69,148.8,40,40,0,0,0,88,224a40.5,40.5,0,0,0,15.5-3.1,64.2,64.2,0,0,1,48.9-.1A39.6,39.6,0,0,0,168,224a40,40,0,0,0,19.1-75.2Z" fill="#ffffff"></path></svg></div>
         <div class="value-title">Sniff First</div>
         <p class="value-desc">Every project starts with research so thorough it borders on obsessive. We find the scent of a real story before we write a single word.</p>
       </div>
@@ -83,7 +84,7 @@
         <p class="value-desc">We don't settle for the easy angle. We pursue the idea worth having, even when it means running harder than everyone else to get there.</p>
       </div>
       <div class="value-card reveal" data-delay="3">
-        <div class="value-icon">👣</div>
+        <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="IconChangeColor" height="40" width="40"> <g> <path fill="none" d="M0 0h24v24H0z" ></path> <path d="M4 18h5.5v1.25a2.75 2.75 0 1 1-5.5 0V18zM8 6.12c2 0 3 2.88 3 4.88 0 1-.5 2-1 3.5L9.5 16H4c0-1-.5-2.5-.5-5S5.498 6.12 8 6.12zm12.054 7.978l-.217 1.231a2.75 2.75 0 0 1-5.417-.955l.218-1.23 5.416.954zM18.178 1.705c2.464.434 4.018 3.124 3.584 5.586-.434 2.463-1.187 3.853-1.36 4.838l-5.417-.955-.232-1.564c-.232-1.564-.55-2.636-.377-3.62.347-1.97 1.832-4.632 3.802-4.285z" fill="#ffffff"></path> </g> </svg></div>
         <div class="value-title">Leave a Trail</div>
         <p class="value-desc">Great content should be findable, followable, and worth following. We build content ecosystems that keep paying off long after we deliver.</p>
       </div>
@@ -112,28 +113,17 @@
     <h2 class="h2" style="margin-bottom: 56px;">A small pack.<br/>Big output.</h2>
     <div class="team-grid">
       <div class="reveal" data-delay="1">
-        <div class="team-img placeholder-box stripe-bg"><span class="placeholder-label">[ Ollie headshot ]</span></div>
+        <div class="team-img placeholder-box stripe-bg"><img src="/img/ollie_cute.webp" alt="Ollie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" /></div>
         <div class="team-name">Ollie</div>
         <div class="team-role">Founder & Chief Strategist</div>
         <p class="team-bio">Visionary. Treat-seeker. Will wrestle you for a bad headline. 4 inches of pure strategy.</p>
       </div>
-      <div class="reveal" data-delay="2">
-        <div class="team-img placeholder-box stripe-bg"><span class="placeholder-label">[ team member ]</span></div>
-        <div class="team-name">Scout</div>
-        <div class="team-role">Head of Research</div>
-        <p class="team-bio">Goes everywhere, misses nothing. Obsessive about finding the real story hiding in plain sight.</p>
-      </div>
-      <div class="reveal" data-delay="3">
-        <div class="team-img placeholder-box stripe-bg"><span class="placeholder-label">[ team member ]</span></div>
-        <div class="team-name">Biscuit</div>
-        <div class="team-role">Senior Copywriter</div>
-        <p class="team-bio">Writes like it's the last treat on the shelf. Fast, precise, and worth chasing across any format.</p>
-      </div>
       <div class="reveal" data-delay="4">
-        <div class="team-img placeholder-box stripe-bg"><span class="placeholder-label">[ team member ]</span></div>
-        <div class="team-name">Pepper</div>
-        <div class="team-role">Analytics & Distribution</div>
-        <p class="team-bio">Numbers dog. Turns data into decisions and dashboards into stories. Inexplicably great at pivot tables.</p>
+        <div class="team-img placeholder-box stripe-bg"><img src="/img/me1k.webp" alt="Roni" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" /></div>
+        <div class="team-name">Roni</div>
+        <div class="team-role">Designated Adult</div>
+        <p class="team-bio">The human. Keeps the lights on, the bowl full, and the walks happening on time. Unofficially employed since day one.</p>
+        <a href="https://roni.rocks/" target="_blank" rel="noopener" class="team-link">Portfolio →</a>
       </div>
     </div>
   </div>

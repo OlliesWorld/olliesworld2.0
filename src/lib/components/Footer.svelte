@@ -11,5 +11,5 @@
     <a href="/blog">Ollie's Corner</a>
     <a href="/contact">Contact</a>
   </div>
-  <div class="footer-copy">© 2026 OlliesWorld. All treats consumed.</div>
+  <div class="footer-copy">© 2026 OlliesWorld. All treats consumed. · <a href="https://roni.rocks/" target="_blank" rel="noopener" class="portfolio-link">Built by Roni</a></div>
 </footer>

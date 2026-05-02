@@ -128,6 +128,8 @@ footer { background: var(--ink); padding: 52px; display: grid; grid-template-col
 .footer-nav a { background: none; border: none; cursor: pointer; font-family: var(--ff-body); font-size: 0.8rem; color: var(--mid); transition: color 0.2s; text-decoration: none; }
 .footer-nav a:hover { color: var(--amber); }
 .footer-copy { font-size: 0.72rem; color: rgba(122,154,170,0.45); }
+.portfolio-link { color: var(--mid); text-decoration: none; border-bottom: 1px solid rgba(122,154,170,0.3); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+.portfolio-link:hover { color: var(--amber); border-color: var(--amber); }
 
 /* ——————————————————————————————
    HOME PAGE
@@ -197,7 +199,7 @@ footer { background: var(--ink); padding: 52px; display: grid; grid-template-col
 .home-services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 56px; }
 .home-svc-card { background: var(--slate-d); padding: 44px 36px; transition: background 0.25s; cursor: default; }
 .home-svc-card:hover { background: var(--slate); }
-.svc-num { font-family: var(--ff-head); font-size: 2.4rem; font-weight: 800; color: rgba(196,118,42,0.2); line-height:1; margin-bottom:20px; }
+.svc-num { font-family: var(--ff-head); font-size: 2.4rem; font-weight: 800; color: var(--amber); line-height:1; margin-bottom:20px; }
 .svc-title { font-family: var(--ff-head); font-size: 1.25rem; font-weight: 700; color: var(--cream); margin-bottom: 14px; }
 .svc-desc { font-size: 0.88rem; line-height: 1.75; color: var(--mid); }
 .svc-pov { font-size: 0.78rem; color: var(--amber); font-style: italic; line-height: 1.5; margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.06); }
@@ -259,6 +261,8 @@ footer { background: var(--ink); padding: 52px; display: grid; grid-template-col
 .team-name { font-family: var(--ff-head); font-size: 1.05rem; font-weight: 700; color: var(--slate-d); }
 .team-role { font-size: 0.8rem; color: var(--amber); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
 .team-bio { font-size: 0.82rem; line-height: 1.65; color: #5a7080; margin-top: 10px; }
+.team-link { display: inline-block; margin-top: 12px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.2s, opacity 0.2s; }
+.team-link:hover { color: var(--amber-l); }
 
 /* ——————————————————————————————
    SERVICES PAGE
@@ -279,7 +283,7 @@ footer { background: var(--ink); padding: 52px; display: grid; grid-template-col
 .process-step { background: var(--slate); padding: 44px 32px; position: relative; }
 .process-step::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: var(--amber); font-size: 1.2rem; z-index: 2; }
 .process-step:last-child::after { display: none; }
-.process-n { font-family: var(--ff-head); font-size: 3rem; font-weight: 800; color: rgba(196,118,42,0.18); line-height: 1; margin-bottom: 20px; }
+.process-n { font-family: var(--ff-head); font-size: 3rem; font-weight: 800; color: var(--amber-l); line-height: 1; margin-bottom: 20px; }
 .process-title { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; color: var(--cream); margin-bottom: 12px; }
 .process-desc { font-size: 0.85rem; line-height: 1.7; color: var(--mid); }
 
@@ -396,6 +400,7 @@ textarea.form-control { min-height: 130px; resize: vertical; }
   /* Layout */
   .inner { padding: 0 32px; }
   footer { padding: 40px 32px; gap: 32px; }
+
 
   /* Grids */
   .stats-row { grid-template-columns: repeat(2, 1fr); }
