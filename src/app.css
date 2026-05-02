@@ -389,6 +389,10 @@ textarea.form-control { min-height: 130px; resize: vertical; }
   .nav-links a { display: block; padding: 12px 0; font-size: 0.95rem; }
   .nav-cta-btn { display: inline-block !important; margin-top: 8px; }
 
+  /* Hero quote */
+  .hero-quote-overlay { bottom: 48px; width: 70%; }
+  .hero-quote-overlay p { font-size: 1.45rem; line-height: 1.5; }
+
   /* Layout */
   .inner { padding: 0 32px; }
   footer { padding: 40px 32px; gap: 32px; }
@@ -454,8 +458,9 @@ textarea.form-control { min-height: 130px; resize: vertical; }
   /* Home hero */
   .home-hero { grid-template-columns: 1fr; min-height: auto; }
   .home-hero-left { padding: 48px 20px; order: 1; }
-  .hero-right { min-height: 260px; order: 2; }
-  .hero-quote-overlay { display: none; }
+  .hero-right { min-height: 300px; order: 2; }
+  .hero-quote-overlay { bottom: 24px; left: 8px; right: 16px; width: 50%; }
+  .hero-quote-overlay p { font-size: 1.05rem; line-height: 1.55; }
   .home-h1 { font-size: clamp(2.2rem, 8vw, 3rem); }
   .hero-btns { flex-wrap: wrap; }
 
