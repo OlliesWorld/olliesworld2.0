@@ -46,8 +46,9 @@
         </div>
       </div>
       <div class="reveal-right">
-        <form name="contact" method="POST" netlify>
+        <form name="contact" method="POST" netlify netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="bot-field" />
           <div class="form-row-2">
             <div><label class="form-label" for="fname">First Name</label><input id="fname" name="fname" type="text" class="form-control" placeholder="Your name" /></div>
             <div><label class="form-label" for="company">Company</label><input id="company" name="company" type="text" class="form-control" placeholder="Your company" /></div>
